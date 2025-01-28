@@ -16,8 +16,9 @@ def home():
             # Retrieve username and password from the form
             username = request.form['username']
             password = request.form['password']
-            message,color,role = login(username,password)
-            return redirect("https://cloud-chat-cnewvelucijbasrhvjuazv.streamlit.app/")
+            message,color = login(username,password)
+            if color == 'green':
+                return redirect("https://cloud-chat-cnewvelucijbasrhvjuazv.streamlit.app/")
             #if role == "admin" :
                 #return redirect(dashboard)
         elif 'register-submit' in request.form:  # Registration form submission

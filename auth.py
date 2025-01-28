@@ -2,10 +2,9 @@ from dotenv import load_dotenv
 import os
 import requests
 
-
-
 load_dotenv()
 backend_uri = os.getenv('BACKEND_URI')
+
 def login(username: str, password: str):
     try:
         # Send a POST request to the backend login endpoint
@@ -21,11 +20,10 @@ def login(username: str, password: str):
             # Extract the message and color from the response
             message = response_data[0]  # "Login successful!"
             color = response_data[1]
-            role = response_data[2]
-            return message, color,role
+            return message, color
         else:
             # Handle non-200 status codes (e.g., 400 Bad Request, 500 Internal Server Error)
-            error_message = response.json().get("message", "Login failed.")
+            error_message = "Invalid username or password!"
             return error_message, "red"
     except requests.exceptions.RequestException as e:
         # Handle connection errors, timeouts, etc.
