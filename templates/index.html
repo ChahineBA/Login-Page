@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://kit.fontawesome.com/64d58efce2.js"
+      crossorigin="anonymous"
+    ></script>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+    <link href="https://cdn.lineicons.com/5.0/lineicons.css" rel="stylesheet" />
+    <title>DeployMate</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="forms-container">
+        <div class="signin-signup">
+          <form action="/" method="POST" class="sign-in-form">
+            <h2 class="title">Sign in</h2>
+            <div class="input-field">
+              <i class="lni lni-user-4"></i>
+              <input type="text" placeholder="Username" name="username" />
+            </div>
+            <div class="input-field">
+              <i class="lni lni-locked-2"></i>
+              <input
+                type="password"
+                name="password"
+                id="login-password"
+                placeholder="Password"
+                oninput="showEyeIcon('login-password', 'login-togglePassword')"
+              />
+              <i
+                class="lni lni-eye"
+                id="login-togglePassword"
+                onclick="togglePassword('login-password', 'login-togglePassword')"
+                style="display: none; cursor: pointer"
+              ></i>
+            </div>
+            <input
+              type="submit"
+              value="Login"
+              class="btn solid"
+              name="login-submit"
+            />
+            <!-- Popup message -->
+            <div
+              id="login-popup"
+              class="popup"
+              style="display: {{ 'block' if message else 'none' }}; background-color: {{ color }};"
+            >
+              {{ message }}
+            </div>
+          </form>
+          <form action="/" method="POST" class="sign-up-form">
+            <h2 class="title">Sign up</h2>
+            <div class="input-field">
+              <i class="lni lni-user-4"></i>
+              <input type="text" placeholder="Username" name="reg-username" />
+            </div>
+            <div class="input-field">
+              <i class="lni lni-envelope-1"></i>
+              <input type="email" placeholder="Email" name="reg-email" />
+            </div>
+            <!-- Signup Password Field -->
+            <div class="input-field">
+              <i class="lni lni-locked-2"></i>
+              <input
+                type="password"
+                name="reg-password"
+                id="signup-password"
+                placeholder="Password"
+                oninput="showEyeIcon('signup-password', 'signup-togglePassword')"
+              />
+              <i
+                class="lni lni-eye"
+                id="signup-togglePassword"
+                onclick="togglePassword('signup-password', 'signup-togglePassword')"
+              ></i>
+            </div>
+            <input
+              type="submit"
+              class="btn"
+              value="Sign up"
+              name="register-submit"
+            />
+          </form>
+        </div>
+      </div>
+
+      <div class="panels-container">
+        <div class="panel left-panel">
+          <div class="content">
+            <h3>DeployMate</h3>
+            <p>
+              Unlock seamless deployment with DeployMate – your intelligent
+              assistant for effortless cloud management and deployment
+              solutions!
+            </p>
+            <button class="btn transparent" id="sign-up-btn">Sign up</button>
+          </div>
+          <img
+            src="{{ url_for('static', filename='img/log.svg') }}"
+            class="image"
+            alt=""
+          />
+        </div>
+        <div class="panel right-panel">
+          <div class="content">
+            <h3>DeployMate: Smart Deployment Assistant 🚀</h3>
+            <p>
+              Join DeployMate today – start streamlining your deployments with
+              expert assistance at your fingertips!
+            </p>
+            <button class="btn transparent" id="sign-in-btn">Sign in</button>
+          </div>
+          <img
+            src="{{ url_for('static', filename='img/register.svg') }}"
+            class="image"
+            alt=""
+          />
+        </div>
+      </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+  </body>
+</html>
