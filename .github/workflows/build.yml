@@ -13,12 +13,15 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      # Step 1: Checkout the repository
       - name: Checkout repository
         uses: actions/checkout@v2
 
+      # Step 2: Set up Docker Buildx
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
 
+      # Step 3: Log in to GitHub Container Registry
       - name: Log in to GitHub Container Registry
         uses: docker/login-action@v1
         with:
@@ -26,6 +29,7 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.TOKEN }}
 
+      # Step 4: Build and push Docker image (latest tag)
       - name: Build and push Docker image
         uses: docker/build-push-action@v2
         with:
@@ -35,6 +39,7 @@ jobs:
           build-args: |
             BACKEND_URI=${{ secrets.BACKEND_URI }}
 
+      # Step 5: Build and push Docker image (version tag)
       - name: Build and push Docker image with version tag
         uses: docker/build-push-action@v2
         with:
@@ -43,3 +48,25 @@ jobs:
           tags: ghcr.io/chahineba/login-page:${{ github.sha }}
           build-args: |
             BACKEND_URI=${{ secrets.BACKEND_URI }}
+
+      # Step 6: Install OpenShift CLI (oc)
+      - name: Install OpenShift CLI
+        run: |
+          curl -s https://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest/openshift-client-linux.tar.gz | tar -xz
+          sudo mv oc /usr/local/bin/
+
+      # Step 7: Log in to OpenShift
+      - name: Log in to OpenShift
+        run: |
+          oc login --server=${{ secrets.OPENSHIFT_SERVER }} --token=${{ secrets.OPENSHIFT_TOKEN }}
+
+      # Step 8: Switch to the OpenShift project
+      - name: Switch to the project
+        run: |
+          oc project ${{ secrets.OPENSHIFT_PROJECT }}
+
+      # Step 9: Deploy to OpenShift
+      - name: Deploy to OpenShift
+        run: |
+          oc new-app ghcr.io/chahineba/login-page:${{ github.sha }} --name=login-page
+          oc expose svc/login-page
