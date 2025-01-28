@@ -3,8 +3,8 @@ from auth import login,register
 from dotenv import load_dotenv
 import os
 app = Flask(__name__)
-load_dotenv()
-dashboard = os.getenv('DASHBOARD_URI')
+#load_dotenv()
+#dashboard = os.getenv('DASHBOARD_URI')
 
 
 @app.route('/', methods=['GET', 'POST'])  # Ensure the route handles both GET and POST
@@ -17,8 +17,9 @@ def home():
             username = request.form['username']
             password = request.form['password']
             message,color,role = login(username,password)
-            if role == "admin" :
-                return redirect(dashboard)
+            return redirect("https://cloud-chat-cnewvelucijbasrhvjuazv.streamlit.app/")
+            #if role == "admin" :
+                #return redirect(dashboard)
         elif 'register-submit' in request.form:  # Registration form submission
             # Retrieve registration details
             reg_username = request.form['reg-username']
