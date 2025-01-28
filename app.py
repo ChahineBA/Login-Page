@@ -3,8 +3,8 @@ from auth import login,register
 from dotenv import load_dotenv
 import os
 app = Flask(__name__)
-#load_dotenv()
-#dashboard = os.getenv('DASHBOARD_URI')
+
+load_dotenv()
 
 
 @app.route('/', methods=['GET', 'POST'])  # Ensure the route handles both GET and POST

@@ -3,10 +3,14 @@ import os
 import requests
 
 load_dotenv()
-backend_uri = os.getenv('BACKEND_URI')
+if os.getenv('BACKEND_URI'):
+    backend_uri = os.getenv('BACKEND_URI')
+else:
+    backend_uri = "https://backend-chahineba-dev.apps.rm1.0a51.p1.openshiftapps.com/"
 
 def login(username: str, password: str):
     try:
+        print(backend_uri)
         # Send a POST request to the backend login endpoint
         response = requests.post(
             f"{backend_uri}/login",
