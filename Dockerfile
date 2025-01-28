@@ -17,15 +17,9 @@ EXPOSE 5000
 ENV FLASK_APP=app.py
 ENV FLASK_RUN_HOST=0.0.0.0
 
-# Use build arguments for secrets
-ARG MONGO_URI
-ARG MONGO_DB
-ARG MONGO_COLLECTION
+ARG BACKEND_URI
 
-# Set environment variables using build arguments
-ENV MONGO_URI=${MONGO_URI}
-ENV MONGO_DB=${MONGO_DB}
-ENV MONGO_COLLECTION=${MONGO_COLLECTION}
+ENV BACKEND_URI = ${BACKEND_URI}
 
 # Run the Flask app
 CMD ["flask", "run"]

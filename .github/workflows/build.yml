@@ -33,9 +33,7 @@ jobs:
           push: true
           tags: ghcr.io/chahineba/login-page:latest
           build-args: |
-            MONGO_URI=${{ secrets.MONGO_URI }}
-            MONGO_DB=${{ secrets.MONGO_DB }}
-            MONGO_COLLECTION=${{ secrets.MONGO_COLLECTION }}
+            BACKEND_URI=${{ secrets.BACKEND_URI }}
 
       - name: Build and push Docker image with version tag
         uses: docker/build-push-action@v2
@@ -44,6 +42,4 @@ jobs:
           push: true
           tags: ghcr.io/chahineba/login-page:${{ github.sha }}
           build-args: |
-            MONGO_URI=${{ secrets.MONGO_URI }}
-            MONGO_DB=${{ secrets.MONGO_DB }}
-            MONGO_COLLECTION=${{ secrets.MONGO_COLLECTION }}
+            BACKEND_URI=${{ secrets.BACKEND_URI }}
